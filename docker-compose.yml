@@ -1,0 +1,42 @@
+version: '3'
+services:
+  raccoon:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: always
+    links:
+      - db:mysql
+      - mailhog
+    ports:
+      - "4123:80"
+    volumes:
+      - ../RaccoonWP:/raccoon:ro
+    depends_on:
+      - db
+      - mailhog
+    environment: 
+      DB_HOST: db
+  db:
+    image: mariadb:10.3
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: racoonroot
+      MYSQL_DATABASE: racoonwp
+      MYSQL_USER: racoonwp
+      MYSQL_PASSWORD: racoonwp
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      MYSQL_ROOT_PASSWORD: racoonroot
+    ports:
+      - 22222:80
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+volumes:
+  db_data:
