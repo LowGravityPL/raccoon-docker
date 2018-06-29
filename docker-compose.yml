@@ -30,7 +30,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      MYSQL_ROOT_PASSWORD: racoonroot
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - 22222:80
   mailhog:
