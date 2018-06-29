@@ -11,7 +11,7 @@ services:
     ports:
       - "4123:80"
     volumes:
-      - ../RaccoonWP:/raccoon:ro
+      - ../RaccoonWP:/raccoon
     depends_on:
       - db
       - mailhog
@@ -23,10 +23,10 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: racoonroot
-      MYSQL_DATABASE: racoonwp
-      MYSQL_USER: racoonwp
-      MYSQL_PASSWORD: racoonwp
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
