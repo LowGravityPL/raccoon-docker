@@ -12,4 +12,4 @@ Your local project should be accessible at http://localhost:4123/
 
 To interactively run commands on the docker container with Raccoon do:
 1. `docker container ls` -> get the container ID for the Raccoon Docker image
-1. `docker container -it <container_ID> bash` - it will open bash session in which you'll be able to for example use `composer`
+1. `docker exec -it <container_ID> bash` - it will open bash session in which you'll be able to for example use `composer`
