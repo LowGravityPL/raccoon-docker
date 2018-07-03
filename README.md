@@ -9,3 +9,7 @@
 You can edit docker-compose.yml to your liking. Make sure that referenced bind in Dockerfile does exist and that your RaccoonWP repo is in that place `../RaccoonWP`.
 
 Your local project should be accessible at http://localhost:4123/
+
+To interactively run commands on the docker container with Raccoon do:
+1. `docker container ls` -> get the container ID for the Raccoon Docker image
+1. `docker container -it <container_ID> bash` - it will open bash session in which you'll be able to for example use `composer`
