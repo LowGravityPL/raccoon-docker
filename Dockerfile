@@ -11,6 +11,7 @@ RUN echo "deb http://ftp.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*/\1/
 		libpng-dev \
 		libxml2-dev \
 		libzip-dev \
+		gettext \
 	&& docker-php-ext-install \
 		exif \
 		gd \
@@ -18,3 +19,6 @@ RUN echo "deb http://ftp.debian.org/debian $(sed -n 's/^VERSION=.*(\(.*\)).*/\1/
 		opcache \
 		soap \
 		zip 
+RUN curl -O https://getcomposer.org/download/1.6.5/composer.phar \
+	&& mv composer.phar /usr/local/bin/composer \
+	&& chmod +x /usr/local/bin/composer
