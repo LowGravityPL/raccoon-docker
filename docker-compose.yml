@@ -4,46 +4,18 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    restart: always
-    links:
-      - db:mysql
-      - mailhog
+    restart: on-failure
     ports:
       - "4123:80"
     volumes:
       - ../RaccoonWP:/raccoon
-    depends_on:
-      - db
-      - mailhog
+      - db_data:/var/lib/mysql
     environment:
-      DB_HOST: db
+      DB_HOST: localhost
       DB_NAME: ${MYSQL_DATABASE}
       DB_USER: ${MYSQL_USER}
       DB_PASSWORD: ${MYSQL_PASSWORD}
       WP_ENV: development
       WP_HOME: http://localhost:4123
-  db:
-    image: mariadb:10.3
-    restart: always
-    ports:
-      - "3306:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "22222:80"
-  mailhog:
-    image: mailhog/mailhog
-    ports:
-      - "1025:1025"
-      - "8025:8025"
 volumes:
   db_data:
